@@ -14,8 +14,9 @@
     <div class="container">
 
         <div class="jumbotron  bg-danger">
-            <h1>WDEV Vagas</h1>
+            <h1>Sistemas Vagas de Estagio</h1>
             <p>Exemplo de CRU com PHP orientada a objetos</p>
         </div>
-
+          <a href="/si/aluno/listar.php">Lista de Alunos</a>
+          <a href="/si/vaga/listar.php">Lista de Vagas de estagio</a>
 

@@ -1,13 +1,13 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 define('TITLE','Editar vaga');
 
  use \App\Entity\Vaga;
 
  if(!isset($_GET['id']) or !is_numeric($_GET['id'])){
-    header('location: index.php?status=error');
+    header('location: listar.php?status=error');
     exit;
  }
  //CONSULTAR VAGA
@@ -19,7 +19,7 @@ exit;*/
 
 //validação a vaga
    if(!$obVaga instanceof Vaga){
-    header('location: index.php?status=error');
+    header('location: listar.php?status=error');
     exit;
    }
 
@@ -32,14 +32,14 @@ exit;*/
               $obVaga-> ativo      =$_POST['ativo'];
               $obVaga-> atualizar() ;
 
-              header('location: index.php?status=sucess');
+              header('location: listar.php?status=success');
               exit;
 }
 
 
-include __DIR__.'/includes/header.php';
-include __DIR__.'/includes/formulario.php';
-include __DIR__.'/includes/footer.php';
+include __DIR__.'/../includes/header.php';
+include __DIR__.'/formulario.php';
+include __DIR__.'/../includes/footer.php';
 /*
 echo "<pre>";  
 print_r($_POST); 

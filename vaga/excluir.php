@@ -1,13 +1,13 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 
  use \App\Entity\Vaga;
 
  if(!isset($_GET['id']) or !is_numeric($_GET['id'])){
 
-    header('location: index.php?status=error');
+    header('location: listar.php?status=error');
     exit;
  }
  //CONSULTAR VAGA
@@ -16,7 +16,7 @@ require __DIR__.'/vendor/autoload.php';
 
 //validação a vaga
    if(!$obVaga instanceof Vaga){
-    header('location: index.php?status=error');
+    header('location: listar.php?status=error');
     exit;
    }
    
@@ -26,14 +26,14 @@ require __DIR__.'/vendor/autoload.php';
 
               $obVaga-> excluir() ;
 
-              header('location: index.php?status=sucess');
+              header('location: listar.php?status=sucess');
               exit;
 }
 
 
-include __DIR__.'/includes/header.php';
-include __DIR__.'/includes/confirmar-exclusao.php';
-include __DIR__.'/includes/footer.php';
+include __DIR__.'/../includes/header.php';
+include __DIR__.'/../includes/confirmar-exclusao.php';
+include __DIR__.'/../includes/footer.php';
 /*
 echo "<pre>";  
 print_r($_POST); 

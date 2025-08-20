@@ -2,7 +2,7 @@
 
 
 <section>
-    <a href="index.php">
+    <a href="listar.php">
         <button class="btn btn-success"> Voltar</button>
     </a>
 </section>
@@ -18,7 +18,7 @@
 
 <div class="form-group">
     <label>Descrição</label>
-    <textarea class="form-control" name="descricao" rows="5"><?=$obVaga->Descrição?></textarea>
+    <textarea class="form-control" name="descricao" rows="5"><?=$obVaga->descricao?></textarea>
 </div>
 
 <div class="form-group">
@@ -40,7 +40,7 @@
 </div>
 
     <div class="form-group">
-        <button type="submit" class="bts bts-sucess">Enviar</button>
+        <button type="submit" class="btn btn-success">Enviar</button>
     
     </div>
 </form>
