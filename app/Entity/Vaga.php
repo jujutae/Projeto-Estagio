@@ -91,6 +91,15 @@ public static function getVagas($where= null, $order = null, $limit = null){
 
     }
 
+    public static function getQuantidadeVagas($where= null){
+        return (new DataBase('vagas'))->select($where, null, null,'COUNT(*) AS qtd')
+                                      ->fetchObject()
+                                      ->qtd;
+    
+    
+        }
+    
+
     public static function getVaga($id){
         return (new DataBase('vagas'))->select('id = '.$id)
                                       -> fetchObject(self::class);

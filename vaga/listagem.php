@@ -36,6 +36,16 @@
                                                             Nenhuma vaga encontrada
                                                             </td>
                                                           </tr>';
+                                                          
+     $paginacao = '';                                                     
+    $paginas = $obPagination->getPages();
+    foreach ($paginas as $key => $pagina) {
+       $paginacao .= '<a href="?pagina='.$pagina['pagina'].'">
+       <button type="button" class="bts bts-light">'.$pagina['pagina']. '</button>
+       </a>;
+    }
+    
+
 ?>
 <main>
 
@@ -45,6 +55,31 @@
     <a href="cadastrar.php">
         <button class="btn btn-success"> Nova vaga</button>
     </a>
+</section>
+ 
+<section>
+
+        <form method="get">
+            <div class=" row my-4">
+                <div class =" col">
+                    <label> Buscar por título</label>
+                    <input type="text" name="busca" class="form-control" value="<?=$busca?>">
+                </div>
+
+                       <div class="col">
+                            <label>Status</label>
+                                <select name="status" class="form-control">
+                                    <option value=" ">Ativa/Inativa</option>
+                                    <option value="s"<?=$filtroStatus == 's' ? 'selected' : ''?> >Ativa</option>
+                                    <option value="n"<?=$filtroStatus == 'n' ? 'selected' : ''?>>Inativa</option>
+                                </select>
+                       </div> 
+
+                <div class="col d-flex align-itens-end">
+                    <button type="submit" class="btn-primary">Filtrar</button>
+                </div>
+            </div>
+        </form>    
 </section>
 
 <section>
@@ -66,6 +101,9 @@
     </tbody>
 </table>
 </section>
+    <section>
+        <?$paginacao?>
+    </section>
 
 
 </main>
