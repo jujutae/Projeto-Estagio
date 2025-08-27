@@ -36,15 +36,21 @@
                                                             Nenhuma vaga encontrada
                                                             </td>
                                                           </tr>';
-                                                          
-     $paginacao = '';                                                     
+
+    unset($_GET['status']);
+    unset($_GET['pagina']);
+
+    $gets = http_build_query($_GET);
+                                                        
+    $paginacao = '';                                                     
     $paginas = $obPagination->getPages();
-    foreach ($paginas as $key => $pagina) {
-       $paginacao .= '<a href="?pagina='.$pagina['pagina'].'">
-       <button type="button" class="bts bts-light">'.$pagina['pagina']. '</button>
-       </a>;
+    foreach ($paginas as $key => $pagina){
+        $class = $pagina['atual'] ? 'btn-primary' : 'btn-ligth';
+        $paginacao .= '<a href="?pagina='.$pagina['pagina'].'&'.$gets.'">
+        <button type="button" class="btn '.$class.'">'.$pagina['pagina'].'</button>
+        </a>';
     }
-    
+
 
 ?>
 <main>
@@ -68,15 +74,15 @@
 
                        <div class="col">
                             <label>Status</label>
-                                <select name="status" class="form-control">
+                                <select name="filtroStatus" class="form-control">
                                     <option value=" ">Ativa/Inativa</option>
                                     <option value="s"<?=$filtroStatus == 's' ? 'selected' : ''?> >Ativa</option>
                                     <option value="n"<?=$filtroStatus == 'n' ? 'selected' : ''?>>Inativa</option>
                                 </select>
                        </div> 
 
-                <div class="col d-flex align-itens-end">
-                    <button type="submit" class="btn-primary">Filtrar</button>
+                <div class="col d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
                 </div>
             </div>
         </form>    
@@ -102,7 +108,8 @@
 </table>
 </section>
     <section>
-        <?$paginacao?>
+        <?= $paginacao ?>
+        
     </section>
 
 
