@@ -3,7 +3,6 @@
 require __DIR__.'/vendor/autoload.php';
 
 
-
  /*echo "<pre>";  
 print_r($vagas); 
 echo "</pre>"; 

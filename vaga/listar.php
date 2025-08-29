@@ -24,14 +24,14 @@ $where = implode(' AND ', $condicoes);
 $quantidadeVagas = Vaga::getQuantidadeVagas($where);
 
 //paginação
-$obPagination = new Pagination($quantidadeVagas, $_GET['pagina'] ?? 1, 10);
+$obPagination = new Pagination($quantidadeVagas, $_GET['pagina'] ?? 1, 5);
 
 $vagas = Vaga:: getVagas($where, null, $obPagination->getLimit());
 
- /*echo "<pre>";  
-print_r($vagas); 
-echo "</pre>"; 
- exit;*/
+ //echo $quantidadeVagas."<pre>";  
+//print_r($obPagination); 
+//echo "</pre>"; 
+ //exit;
 
 include __DIR__.'/../includes/header.php';
 include __DIR__.'/listagem.php';

@@ -13,6 +13,7 @@ class Pagination{
         $this->results = $results;
         $this-> limit = $limit;
         $this-> currentPage = (is_numeric($currentPage)and $currentPage>0) ? $currentPage : 1;
+        $this->calculate();
     }
     private function calculate(){
         $this->pages = $this->results > 0 ? ceil($this->results / $this->limit): 1;

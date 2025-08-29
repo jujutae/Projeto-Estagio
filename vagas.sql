@@ -14,11 +14,13 @@ INSERT INTO `vagas` (`id`, `titulo`, `descricao`, `ativo`, `data`) VALUES
 create table alunos(
          id int not null AUTO_INCREMENT PRIMARY KEY,/
          nome varchar(255),
-         cpf varchar(14),
-         telefone varchar(14),
-         email_pessoal varchar(255),
-         email_institucional varchar(255),
+         cpf varchar(11) unique,
+         matricula varchar(255)
+         telefone varchar(14) unique,
+         email_pessoal varchar(255) unique,
+         email_institucional varchar(255) unique,
          dtn date,
          curso varchar(255),
          periodo varchar(2)
+         senha varchar (255)
 );
