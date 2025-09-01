@@ -6,6 +6,9 @@ define('TITLE','Cadastrar vaga');
 
  use \App\Entity\Vaga;
  $obVaga= new Vaga;
+ use \App\Session\Login;
+
+Login::requiredLogin();
 
 
 //VALIDAÇÃO DO POST
