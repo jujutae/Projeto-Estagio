@@ -8,7 +8,7 @@ define('TITLE','Cadastrar vaga');
  $obVaga= new Vaga;
  use \App\Session\Login;
 
-Login::requiredLogin();
+//Login::requiredLogin();
 
 
 //VALIDAÇÃO DO POST

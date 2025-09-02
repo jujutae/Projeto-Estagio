@@ -25,6 +25,8 @@ class Aluno{
 
     public $data;
 
+    public $senha;
+
 
     /**
      * meotodo responsavel por cadastrar uma nova vaga no banco 
@@ -43,7 +45,8 @@ class Aluno{
                                             'email_institucional'=> $this->email_institucional,
                                             'curso' => $this->curso,
                                             'periodo' => $this->periodo,
-                                            'dtn'=> $this->data
+                                            'dtn'=> $this->data,
+                                            'senha'=> $this->senha
                                         ]);
         //RETORNAR SUCESSO 
         return true;
@@ -59,7 +62,8 @@ class Aluno{
                                             'email_institucional'=> $this->email_institucional,
                                             'curso' => $this->curso,
                                             'periodo' => $this->periodo,
-                                            'dtn'=> $this->data
+                                            'dtn'=> $this->data,
+                                            'senha'=> $this->senha
                                                                     ]);
     }
 
@@ -85,6 +89,12 @@ public static function getAlunos($where= null, $order = null, $limit = null){
 
     public static function getAluno($id){
         return (new DataBase('alunos'))->select('id = '.$id)
+                                      -> fetchObject(self::class);
+
+    }
+
+    public static function getAlunoPorCpf($cpf){
+        return (new DataBase('alunos'))->select('cpf = '.$cpf)
                                       -> fetchObject(self::class);
 
     }
