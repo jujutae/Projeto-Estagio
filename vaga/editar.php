@@ -15,6 +15,7 @@ Login::requiredLogin();
  }
  //CONSULTAR VAGA
     $obVaga = Vaga:: getVaga($_GET['id']);
+    
     /*echo "<pre>";  
 print_r($obVaga); 
 echo "</pre>"; 
@@ -43,6 +44,7 @@ exit;*/
 include __DIR__.'/../includes/header.php';
 include __DIR__.'/formulario.php';
 include __DIR__.'/../includes/footer.php';
+
 /*
 echo "<pre>";  
 print_r($_POST); 
