@@ -7,7 +7,7 @@ use \App\Entity\Vaga;
 use \App\Db\Pagination;
 use \App\Session\Login;
 
-//Login::requiredLogin();
+Login::requiredLogin();
 
 //busca
 $busca = filter_input(INPUT_GET, 'busca', FILTER_SANITIZE_STRING);
