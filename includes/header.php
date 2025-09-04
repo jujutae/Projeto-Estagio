@@ -114,14 +114,13 @@ $usuario = $alunoLogado ?
   </style>
 </head>
 
-<body>
+<body class="position-relative">
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-custom shadow-sm">
     <div class="container">
 
       <a class="navbar-brand d-flex align-items-center" href="/si/index.php">
-        <img src="/si/imagens/ifto-logo.png" alt="IFTO Logo" class="me-2">
         <strong>WDEV Vagas</strong>
       </a>
 

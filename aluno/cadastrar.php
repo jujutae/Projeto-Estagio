@@ -4,8 +4,14 @@ require __DIR__.'/../vendor/autoload.php';
 
 define('TITLE','Cadastrar aluno');
 
+
+
  use \App\Entity\Aluno;
  $obAluno= new Aluno;
+ use \App\Session\Login;
+
+Login::requiredLogin();
+
 
 
 //VALIDAÇÃO DO POST

@@ -35,7 +35,7 @@ class DataBase
      * senha do banco de dados 
      *@var string 
      */
-    const PASS = '123';
+    const PASS = '';
 
 
     /**
@@ -128,20 +128,25 @@ class DataBase
      * @param string $fields
      * @return PDOStatement
      */
-    public function select($where = null, $order = null, $limit = null, $fields = '*')
-    {
-        //dados da query
-        $where = strlen($where) ? 'WHERE ' . $where : '';
-        $order = strlen($order) ? 'ORDER BY ' . $order : '';
-        $limit = strlen($limit) ? 'LIMIT ' . $limit : '';
-        //monta a query
-        $query = 'SELECT ' . $fields . ' FROM ' . $this->table . ' ' . $where . '' . $order . '' . $limit;
+    public function select($where = null, $order = null, $limit = null, $fields = '*'){
+    // montar SQL base
+    $query = 'SELECT '.$fields.' FROM '.$this->table;
 
+    // condições
+    $where = strlen($where) ? ' WHERE '.$where : '';
 
-        //executa a query
-        return $this->execute($query);
+    // ordenação
+    $order = strlen($order) ? ' ORDER BY '.$order : '';
 
-    }
+    // limite
+    $limit = strlen($limit) ? ' LIMIT '.$limit : '';
+
+    // montar query final
+    $query .= $where.$order.$limit;
+
+    return $this->execute($query);
+}
+
 
     public function update($where, $values)
     {

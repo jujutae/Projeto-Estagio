@@ -1,53 +1,77 @@
-<<?php
+<?php
 
-    $mensagem = '';
-    if (isset($_GET['status'])) {
-        switch ($_GET['status']) {
-            case 'sucess':
-                $mensagem = '<div class="alert alert-success">Ação executada com sucesso!</div>';
-                break;
-            case 'error':
-                $mensagem = '<div class="alert alert-danger">Ação não executada!</div>';
-                break;
-        }
+$mensagem = '';
+if (isset($_GET['status'])) {
+    switch ($_GET['status']) {
+        case 'sucess':
+            $mensagem = '<div class="alert alert-success">Ação executada com sucesso!</div>';
+            break;
+        case 'error':
+            $mensagem = '<div class="alert alert-danger">Ação não executada!</div>';
+            break;
     }
+}
 
-    $resultados = '';
-    foreach ($vagas as $vaga) {
-        $resultados .= '<tr>
-    <td>' . $vaga->id . '</td>
-    <td>' . $vaga->titulo . '</td>
-    <td>' . $vaga->descricao . '</td>
-    <td>' . ($vaga->ativo == 's' ? 'Ativo' : 'Inativo') . '</td>
-    <td>' . date('d/m/Y à\s H:i:s', strtotime($vaga->data)) . '</td>
-    <td>
-      <a href="editar.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-primary me-1">
-        <i class="bi bi-pencil"></i> Editar
-      </a>
-      <a href="excluir.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-danger">
-        <i class="bi bi-trash"></i> Excluir
-      </a>
-    </td>
-  </tr>';
-    }
+$resultados = '';
+foreach ($vagas as $vaga) {
+    $resultados .= '<tr>
+        <td>' . $vaga->id . '</td>
+        <td>' . $vaga->titulo . '</td>
+        <td>' . $vaga->descricao . '</td>
+        <td>' . ($vaga->ativo == 's' ? 'Ativo' : 'Inativo') . '</td>
+        <td>' . date('d/m/Y à\s H:i:s', strtotime($vaga->data)) . '</td>
+        <td>
+          <a href="editar.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-primary me-1">
+            <i class="bi bi-pencil"></i> Editar
+          </a>
+          <a href="excluir.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-danger">
+            <i class="bi bi-trash"></i> Excluir
+          </a>
+        </td>
+    </tr>';
+}
 
-    $resultados = strlen($resultados) ? $resultados : '<tr><td colspan="6" class="text-center">Nenhuma vaga encontrada.</td></tr>';
+$resultados = strlen($resultados) ? $resultados : '<tr><td colspan="6" class="text-center">Nenhuma vaga encontrada.</td></tr>';
 
-    unset($_GET['status']);
-    unset($_GET['pagina']);
-    $gets = http_build_query($_GET);
+// PAGINAÇÃO - mostrando no máximo 3 botões
+$paginas = $obPagination->getPages();
+$totalPaginas = count($paginas);
+$paginaAtual = $_GET['pagina'] ?? 1;
+$paginaAtual = (int)$paginaAtual;
 
-    $paginas = $obPagination->getPages();
-    $paginacao = '';
-    foreach ($paginas as $pagina) {
-        $class = $pagina['atual'] ? 'btn-primary' : 'btn-light';
-        $paginacao .= '<a href="?pagina=' . $pagina['pagina'] . '&' . $gets . '">
-    <button type="button" class="btn ' . $class . ' me-1">' . $pagina['pagina'] . '</button>
-  </a>';
-    }
-    ?>
+$start = max($paginaAtual - 1, 1);
+$end = min($start + 2, $totalPaginas);
 
-    <main class="container py-4">
+$gets = $_GET;
+unset($gets['pagina']);
+$getsQuery = http_build_query($gets);
+
+$paginacao = '<nav><ul class="pagination justify-content-center">';
+
+// Botão "Anterior"
+$prevPage = max($paginaAtual - 1, 1);
+$paginacao .= '<li class="page-item ' . ($paginaAtual == 1 ? 'disabled' : '') . '">
+    <a class="page-link" href="?pagina=' . $prevPage . '&' . $getsQuery . '">&laquo;</a>
+</li>';
+
+// Botões das páginas
+for ($i = $start; $i <= $end; $i++) {
+    $active = $i == $paginaAtual ? 'active' : '';
+    $paginacao .= '<li class="page-item ' . $active . '">
+        <a class="page-link" href="?pagina=' . $i . '&' . $getsQuery . '">' . $i . '</a>
+    </li>';
+}
+
+// Botão "Próximo"
+$nextPage = min($paginaAtual + 1, $totalPaginas);
+$paginacao .= '<li class="page-item ' . ($paginaAtual == $totalPaginas ? 'disabled' : '') . '">
+    <a class="page-link" href="?pagina=' . $nextPage . '&' . $getsQuery . '">&raquo;</a>
+</li>';
+
+$paginacao .= '</ul></nav>';
+?>
+
+<main class="container py-4">
 
     <!-- MENSAGEM -->
     <?= $mensagem ?>
@@ -110,4 +134,4 @@
         <?= $paginacao ?>
     </section>
 
-    </main>
+</main>

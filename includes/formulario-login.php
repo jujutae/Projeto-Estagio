@@ -1,8 +1,8 @@
 <?php
 $alertaLogin = strlen($alertaLogin) ? '<div class="alert alert-danger">' . $alertaLogin . '</div>' : '';
 ?>
-<main class="d-flex justify-content-center">
-    <div class="card">
+<main class="container position-absolute align-items-center d-flex justify-content-center h-100  mw-100">
+    <div class="card ">
         <div class="card-header">
             <h2 class="mt-3">Login</h2>
             <?= $alertaLogin ?>

@@ -125,3 +125,41 @@ $resultados = strlen($resultados) ? $resultados : '
 </body>
 
 </html>
+
+<?php if(!empty($obPagination)): ?>
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+
+        <!-- Botão Anterior -->
+        <li class="page-item <?= ($currentPage <= 1) ? 'disabled' : '' ?>">
+            <a class="page-link" href="?pagina=<?= max(1, $currentPage-1) ?>" tabindex="-1">«</a>
+        </li>
+
+        <?php
+        $pages = $obPagination->getPages();
+        $totalPages = count($pages);
+
+        // calcula intervalo de páginas para exibir (máx 3)
+        $start = max(1, $currentPage - 1);
+        $end   = min($totalPages, $start + 2);
+
+        if(($end - $start) < 2){
+            $start = max(1, $end - 2);
+        }
+        ?>
+
+        <!-- Páginas -->
+        <?php for($i = $start; $i <= $end; $i++): ?>
+        <li class="page-item <?= ($i == $currentPage) ? 'active' : '' ?>">
+            <a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a>
+        </li>
+        <?php endfor; ?>
+
+        <!-- Botão Próximo -->
+        <li class="page-item <?= ($currentPage >= $totalPages) ? 'disabled' : '' ?>">
+            <a class="page-link" href="?pagina=<?= min($totalPages, $currentPage+1) ?>">»</a>
+        </li>
+
+    </ul>
+</nav>
+<?php endif; ?>

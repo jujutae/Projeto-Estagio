@@ -4,6 +4,9 @@ require __DIR__.'/../vendor/autoload.php';
 
 
  use \App\Entity\Aluno;
+ use \App\Session\Login;
+
+Login::requiredLogin();
 
  if(!isset($_GET['id']) or !is_numeric($_GET['id'])){
 

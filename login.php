@@ -32,3 +32,4 @@ echo "</pre>";
 include __DIR__ . '/includes/header.php';
 include __DIR__ . '/includes/formulario-login.php';
 include __DIR__ . '/includes/footer.php';
+include __DIR__ . '/app/Db/Pagination.php';
