@@ -15,9 +15,9 @@ if (isset($_POST['cpf'], $_POST['senha'])) {
     // Busca aluno pelo CPF
     $aluno = Aluno::getAlunoPorCpf($_POST['cpf']); // método estático esperado
 
-    echo "<pre>";  
-print_r($aluno); 
-echo "</pre>"; 
+    //echo "<pre>";  
+//print_r($aluno); 
+//echo "</pre>"; 
 
     // Verifica se encontrou e valida a senha
     if (!$aluno instanceof Aluno || !password_verify($_POST['senha'], $aluno->senha)) {

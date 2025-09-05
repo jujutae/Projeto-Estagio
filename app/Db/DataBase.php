@@ -35,7 +35,7 @@ class DataBase
      * senha do banco de dados 
      *@var string 
      */
-    const PASS = '';
+    const PASS = '123';
 
 
     /**
@@ -83,9 +83,9 @@ class DataBase
     public function execute($query, $params = [])
     {
         try {
-            echo "<pre>";
-            print_r($query);
-            echo "</pre>";
+            //echo "<pre>";
+            //print_r($query);
+           // echo "</pre>";
             // exit;
 
             $statement = $this->connection->prepare($query);

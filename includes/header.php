@@ -6,7 +6,7 @@ $alunoLogado = Login::getAlunoLogado();
 
 $usuario = $alunoLogado ?
   '<span class="navbar-text me-3 text-baby-blue fw-bold">' . $alunoLogado['nome'] . '</span>
-   <a href="/si/logout.php" class="btn btn-baby-blue me-2">Sair</a>' :
+   <a href="/si/logout.php" class="btn btn-danger me-2">Sair</a>' :
   '<span class="navbar-text me-3 text-baby-blue">Visitante</span>
    <a href="/si/login.php" class="btn btn-baby-blue me-2">Entrar</a>';
 
@@ -27,9 +27,10 @@ $usuario = $alunoLogado ?
   <style>
     :root {
       --baby-blue: #add8e6;
-      --baby-blue-hover: #c4e1ec;
+      --baby-blue-hover: #87ceeb;
       --page-bg: #f8f9fa;
-      /* Claro e agradável */
+      --strong-blue: #0077b6;
+      /* Azul mais forte */
     }
 
     body {
@@ -40,26 +41,31 @@ $usuario = $alunoLogado ?
       min-height: 100vh;
     }
 
+    /* Botões mais destacados */
     .btn-baby-blue {
-      background-color: var(--baby-blue);
-      color: #0d1b2a;
+      background-color: var(--strong-blue);
+      color: #fff;
       border: none;
+      border-radius: 8px;
+      margin-left: 0.5rem;
+      padding: 0.5rem 1.2rem;
+      font-weight: bold;
     }
 
     .btn-baby-blue:hover {
-      background-color: var(--baby-blue-hover);
-      color: #0d1b2a;
+      background-color: #023e8a;
+      color: #fff;
     }
 
     .form-control {
-      border: 2px solid var(--baby-blue);
+      border: 2px solid var(--strong-blue);
       background-color: white;
       color: black;
     }
 
     .form-control:focus {
-      box-shadow: 0 0 0 0.2rem rgba(173, 216, 230, 0.5);
-      border-color: var(--baby-blue);
+      box-shadow: 0 0 0 0.2rem rgba(0, 119, 182, 0.4);
+      border-color: var(--strong-blue);
     }
 
     .navbar-custom {
@@ -70,19 +76,30 @@ $usuario = $alunoLogado ?
     .navbar-custom .navbar-brand,
     .navbar-custom .navbar-text {
       color: #0d1b2a !important;
+      position: relative;
+      font-weight: 500;
+      padding-bottom: 6px;
     }
 
-    .navbar-custom .nav-link.active {
-      font-weight: bold;
-      text-decoration: underline;
+    /* Linha inferior nos links */
+    .navbar-custom .nav-link::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #0d1b2a;
+      transition: width 0.3s;
+      margin-top: 2px;
     }
 
-    .text-baby-blue {
-      color: #0d1b2a !important;
+    .navbar-custom .nav-link:hover::after,
+    .navbar-custom .nav-link.active::after {
+      width: 100%;
     }
 
     .navbar-collapse {
       justify-content: flex-end;
+      align-items: center;
     }
 
     .navbar {
@@ -107,13 +124,27 @@ $usuario = $alunoLogado ?
       text-decoration: underline;
     }
 
+    /* Identificação do usuário */
+    .user-info {
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      color: #0d1b2a;
+    }
+
+    .user-info i {
+      margin-right: 6px;
+      font-size: 1.2rem;
+      color: var(--strong-blue);
+    }
+
     /* Garante o footer no final */
     .main-content {
       flex: 1;
     }
   </style>
 </head>
-
 <body class="position-relative">
 
   <!-- NAVBAR -->
@@ -123,7 +154,6 @@ $usuario = $alunoLogado ?
       <a class="navbar-brand d-flex align-items-center" href="/si/index.php">
         <strong>WDEV Vagas</strong>
       </a>
-
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -133,7 +163,7 @@ $usuario = $alunoLogado ?
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0 me-4 text-end">
           <li class="nav-item">
-            <a class="nav-link active" href="/si/index.php">Home</a>
+            <a class="nav-link" href="/si/index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/si/aluno/listar.php">Alunos</a>
@@ -143,13 +173,13 @@ $usuario = $alunoLogado ?
           </li>
         </ul>
 
-        <div class="d-flex align-items-center">
+        <!-- Identificação do usuário -->
+        <div class="user-info">
+          <i class="bi bi-person-circle"></i>
           <?= $usuario ?>
-          <form class="d-flex" role="search" method="GET" action="/si/busca.php">
-            <input class="form-control me-2" type="search" name="q" placeholder="Buscar" aria-label="Buscar">
-            <button class="btn btn-baby-blue" type="submit">Buscar</button>
-          </form>
         </div>
       </div>
     </div>
   </nav>
+
+ 

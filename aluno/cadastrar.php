@@ -1,41 +1,35 @@
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-define('TITLE','Cadastrar aluno');
+define('TITLE', 'Cadastrar aluno');
 
 
 
- use \App\Entity\Aluno;
- $obAluno= new Aluno;
- use \App\Session\Login;
+use \App\Entity\Aluno;
+use \App\Session\Login;
+
+$obAluno = new Aluno;
 
 Login::requiredLogin();
-
-
-
 //VALIDAÇÃO DO POST
-       if(isset($_POST['nome'], $_POST['cpf'],$_POST['telefone'],$_POST['email_institucional'],$_POST['curso'],$_POST['periodo'],$_POST['dtn'])){
+if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_institucional'], $_POST['curso'], $_POST['periodo'], $_POST['dtn'])) {
 
-              
-              $obAluno-> nome     =$_POST['nome'] ;
-              $obAluno-> cpf  =$_POST['cpf'];
-              $obAluno-> telefone      =$_POST['telefone'];
-              $obAluno-> email_pessoal     =$_POST['email_pessoal'] ;
-              $obAluno-> email_institucional  =$_POST['email_institucional'];
-              $obAluno-> curso     =$_POST['curso'] ;
-              $obAluno-> periodo  =$_POST['periodo'];
-              $obAluno-> data     =$_POST['dtn'] ;
-              $obAluno-> cadastrar() ;
 
-              header('location: listar.php?status=success');
-              exit;
+       $obAluno->nome     = $_POST['nome'];
+       $obAluno->cpf  = $_POST['cpf'];
+       $obAluno->telefone      = $_POST['telefone'];
+       $obAluno->email_pessoal     = $_POST['email_pessoal'];
+       $obAluno->email_institucional  = $_POST['email_institucional'];
+       $obAluno->curso     = $_POST['curso'];
+       $obAluno->periodo  = $_POST['periodo'];
+       $obAluno->data     = $_POST['dtn'];
+       $obAluno->cadastrar();
+
+       header('location: listar.php?status=success');
+       exit;
 }
 
-
-include __DIR__.'/../includes/header.php';
-include __DIR__.'/formulario.php';
-include __DIR__.'/../includes/footer.php';
 /*
 echo "<pre>";  
 print_r($_POST); 
@@ -43,3 +37,6 @@ echo "</pre>";
 exit;
 */
 
+include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/formulario.php';
+include __DIR__ . '/../includes/footer.php';

@@ -40,8 +40,45 @@ $resultados = strlen($resultados) ? $resultados : '
 <tr>
   <td colspan="10" class="text-center text-muted">Nenhum aluno encontrado.</td>
 </tr>';
-?>
 
+
+// PAGINAÇÃO - mostrando no máximo 3 botões
+$paginas = $obPagination->getPages();
+$totalPaginas = count($paginas);
+$paginaAtual = $_GET['pagina'] ?? 1;
+$paginaAtual = (int)$paginaAtual;
+
+$start = max($paginaAtual - 1, 1);
+$end = min($start + 2, $totalPaginas);
+
+$gets = $_GET;
+unset($gets['pagina']);
+$getsQuery = http_build_query($gets);
+
+$paginacao = '<nav><ul class="pagination justify-content-center">';
+
+// Botão "Anterior"
+$prevPage = max($paginaAtual - 1, 1);
+$paginacao .= '<li class="page-item ' . ($paginaAtual == 1 ? 'disabled' : '') . '">
+    <a class="page-link" href="?pagina=' . $prevPage . '&' . $getsQuery . '">&laquo;</a>
+</li>';
+
+// Botões das páginas
+for ($i = $start; $i <= $end; $i++) {
+    $active = $i == $paginaAtual ? 'active' : '';
+    $paginacao .= '<li class="page-item ' . $active . '">
+        <a class="page-link" href="?pagina=' . $i . '&' . $getsQuery . '">' . $i . '</a>
+    </li>';
+}
+
+// Botão "Próximo"
+$nextPage = min($paginaAtual + 1, $totalPaginas);
+$paginacao .= '<li class="page-item ' . ($paginaAtual == $totalPaginas ? 'disabled' : '') . '">
+    <a class="page-link" href="?pagina=' . $nextPage . '&' . $getsQuery . '">&raquo;</a>
+</li>';
+
+$paginacao .= '</ul></nav>';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -126,40 +163,4 @@ $resultados = strlen($resultados) ? $resultados : '
 
 </html>
 
-<?php if(!empty($obPagination)): ?>
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
 
-        <!-- Botão Anterior -->
-        <li class="page-item <?= ($currentPage <= 1) ? 'disabled' : '' ?>">
-            <a class="page-link" href="?pagina=<?= max(1, $currentPage-1) ?>" tabindex="-1">«</a>
-        </li>
-
-        <?php
-        $pages = $obPagination->getPages();
-        $totalPages = count($pages);
-
-        // calcula intervalo de páginas para exibir (máx 3)
-        $start = max(1, $currentPage - 1);
-        $end   = min($totalPages, $start + 2);
-
-        if(($end - $start) < 2){
-            $start = max(1, $end - 2);
-        }
-        ?>
-
-        <!-- Páginas -->
-        <?php for($i = $start; $i <= $end; $i++): ?>
-        <li class="page-item <?= ($i == $currentPage) ? 'active' : '' ?>">
-            <a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a>
-        </li>
-        <?php endfor; ?>
-
-        <!-- Botão Próximo -->
-        <li class="page-item <?= ($currentPage >= $totalPages) ? 'disabled' : '' ?>">
-            <a class="page-link" href="?pagina=<?= min($totalPages, $currentPage+1) ?>">»</a>
-        </li>
-
-    </ul>
-</nav>
-<?php endif; ?>
