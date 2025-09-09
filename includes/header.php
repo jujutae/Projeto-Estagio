@@ -139,10 +139,6 @@ $usuario = $alunoLogado ?
       color: var(--strong-blue);
     }
 
-    /* Garante o footer no final */
-    .main-content {
-      flex: 1;
-    }
   </style>
 </head>
 <body class="position-relative">

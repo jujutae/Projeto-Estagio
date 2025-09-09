@@ -27,12 +27,14 @@ $where = implode(' AND ', $condicoes);
 $quantidadeAlunos = Aluno::getQuantidadeAlunos();
 
 // paginação (10 alunos por página)
-$obPagination = new Pagination($quantidadeAlunos, $_GET['pagina'] ?? 1, 5);
+$obPagination = new Pagination($quantidadeAlunos, $_GET['pagina'] ?? 1, 3);
 
 // alunos da página atual
 $alunos = Aluno::getAlunos(null, 'id ASC', $obPagination->getLimit());
 $currentPage = $_GET['pagina'] ?? 1;
 $currentPage = (int) $currentPage;
+
+
 
 
 include __DIR__.'/../includes/header.php';

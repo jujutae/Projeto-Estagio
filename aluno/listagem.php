@@ -24,13 +24,13 @@ foreach ($alunos as $aluno) {
     <td>' . $aluno->email_institucional . '</td>
     <td>' . $aluno->curso . '</td>
     <td>' . $aluno->periodo . '</td>
-    <td>' . date('d/m/Y à\s H:i:s', strtotime($aluno->data)) . '</td>
+    <td>' . date('d/m/Y \à\s H:i:s', strtotime($aluno->data)) . '</td>
     <td class="text-nowrap">
       <a href="editar.php?id=' . $aluno->id . '" class="btn btn-sm btn-outline-primary me-1">
-        <i class="bi bi-pencil"></i> Editar
+        <i class="bi bi-pencil"></i> 
       </a>
       <a href="excluir.php?id=' . $aluno->id . '" class="btn btn-sm btn-outline-danger">
-        <i class="bi bi-trash"></i> Excluir
+        <i class="bi bi-trash"></i> 
       </a>
     </td>
   </tr>';
@@ -41,8 +41,7 @@ $resultados = strlen($resultados) ? $resultados : '
   <td colspan="10" class="text-center text-muted">Nenhum aluno encontrado.</td>
 </tr>';
 
-
-// PAGINAÇÃO - mostrando no máximo 3 botões
+// PAGINAÇÃO
 $paginas = $obPagination->getPages();
 $totalPaginas = count($paginas);
 $paginaAtual = $_GET['pagina'] ?? 1;
@@ -79,88 +78,86 @@ $paginacao .= '<li class="page-item ' . ($paginaAtual == $totalPaginas ? 'disabl
 
 $paginacao .= '</ul></nav>';
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lista de Alunos</title>
+<!-- Conteúdo principal -->
+<main class="container py-4 flex-grow-1">
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Mensagem de status -->
+    <?= $mensagem ?>
 
-    <style>
-        /* Botão azul bebê */
-        .btn-baby-blue {
-            background-color: #a9d6e5;
-            color: #03396c;
-            border: 1px solid #82c0cc;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .btn-baby-blue:hover,
-        .btn-baby-blue:focus {
-            background-color: #82c0cc;
-            color: #f0f8ff;
-            border-color: #669bb0;
-            text-decoration: none;
-        }
-
-        footer {
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-        }
-    </style>
-</head>
-
-<body class="d-flex flex-column min-vh-100 bg-light">
-
-    <!-- Conteúdo principal -->
-    <main class="container py-4 flex-grow-1">
-
-        <!-- Mensagem de status -->
-        <?= $mensagem ?>
-
-        <!-- Cabeçalho da listagem -->
-        <section class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-0">Lista de Alunos</h2>
-            <a href="cadastrar.php" class="btn btn-baby-blue">
-                <i class="bi bi-plus-circle"></i> Novo aluno
-            </a>
-        </section>
-
-        <!-- Tabela responsiva com scroll horizontal -->
-        <section>
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover bg-white shadow-sm">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Telefone</th>
-                            <th>Email Pessoal</th>
-                            <th>Email Institucional</th>
-                            <th>Curso</th>
-                            <th>Período</th>
-                            <th>Data</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?= $resultados ?>
-                    </tbody>
-                </table>
+    <!-- Cabeçalho da listagem -->
+    <section class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Lista de Alunos</h2>
+        <a href="cadastrar.php" class="btn btn-baby-blue">
+            <i class="bi bi-plus-circle"></i> Novo aluno
+        </a>
+    </section>
+    <!-- Filtros -->
+    <section class="mb-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="nome" class="form-control"
+                    placeholder="Pesquisar por nome"
+                    value="<?= $_GET['nome'] ?? '' ?>">
             </div>
-        </section>
-    </main>
+            <div class="col-md-3">
+                <select name="Ano" class="form-select">
+                    <option value="">-- Ano--</option>
+                    <option value="1" <?= (($_GET['periodo'] ?? '') == '1') ? 'selected' : '' ?>>1º Ano</option>
+                    <option value="2" <?= (($_GET['periodo'] ?? '') == '2') ? 'selected' : '' ?>>2º Ano</option>
+                    <option value="3" <?= (($_GET['periodo'] ?? '') == '3') ? 'selected' : '' ?>>3º Ano</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="curso" class="form-select">
+                    <option value="">-- Curso --</option>
+                    <option value="Meio Ambiente" <?= (($_GET['curso'] ?? '') == 'Meio Ambiente') ? 'selected' : '' ?>>Meio Ambiente </option>
+                    <option value="Administração" <?= (($_GET['curso'] ?? '') == 'Administração') ? 'selected' : '' ?>>Administração</option>
+                    <option value="Informatica" <?= (($_GET['curso'] ?? '') == 'Informatica') ? 'selected' : '' ?>>Informatica</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex">
+                <button type="submit" class="btn btn-baby-blue me-2 flex-grow-1">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+                <a href="listar.php" class="btn btn-outline-secondary flex-grow-1">
+                    <i class="bi bi-x-circle"></i> Limpar
+                </a>
+            </div>
+        </form>
+    </section>
 
 
-</body>
 
-</html>
+    <!-- Tabela responsiva -->
+    <section>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover bg-white shadow-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Email Pessoal</th>
+                        <th>Email Institucional</th>
+                        <th>Curso</th>
+                        <th>Período</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?= $resultados ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
+    <!-- Paginação -->
+    <div class="mt-3">
+        <?= $paginacao ?>
+    </div>
+</main>
 
+<?php require __DIR__ . '/../includes/footer.php'; ?>

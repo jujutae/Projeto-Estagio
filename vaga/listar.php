@@ -27,7 +27,7 @@ $where = implode(' AND ', $condicoes);
 $quantidadeVagas = Vaga::getQuantidadeVagas($where);
 
 // paginação (5 vagas por página)
-$obPagination = new Pagination($quantidadeVagas, $_GET['pagina'] ?? 1, 5);
+$obPagination = new Pagination($quantidadeVagas, $_GET['pagina'] ?? 1, 4);
 
 // vagas da página atual
 $vagas = Vaga::getVagas($where, null, $obPagination->getLimit());
