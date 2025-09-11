@@ -24,6 +24,8 @@ if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_insti
        $obAluno->curso     = $_POST['curso'];
        $obAluno->periodo  = $_POST['periodo'];
        $obAluno->data     = $_POST['dtn'];
+       $obAluno->matricula = $_POST['matricula'];
+       $obAluno->nivel = 1;
        $obAluno->cadastrar();
 
        header('location: listar.php?status=success');

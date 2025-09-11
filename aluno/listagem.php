@@ -96,9 +96,7 @@ $paginacao .= '</ul></nav>';
     <section class="mb-4">
         <form method="get" class="row g-3">
             <div class="col-md-4">
-                <input type="text" name="nome" class="form-control"
-                    placeholder="Pesquisar por nome"
-                    value="<?= $_GET['nome'] ?? '' ?>">
+                <input type="text" name="busca" class="form-control" placeholder="Pesquisar por nome" value="<?= $_GET['busca'] ?? '' ?>">
             </div>
             <div class="col-md-3">
                 <select name="Ano" class="form-select">

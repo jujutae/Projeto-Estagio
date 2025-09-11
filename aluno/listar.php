@@ -10,14 +10,9 @@ Login::requiredLogin();
 
 $busca = filter_input(INPUT_GET, 'busca', FILTER_SANITIZE_STRING);
 
-// filtro status
-$filtroStatus = filter_input(INPUT_GET, 'filterStatus', FILTER_SANITIZE_STRING);
-$filtroStatus = in_array($filtroStatus, ['s', 'n']) ? $filtroStatus : '';
-
 // condições SQL
 $condicoes = [
-    strlen($busca) ? 'titulo LIKE "%' . str_replace(' ', '%', $busca) . '%"' : null,
-    strlen($filtroStatus) ? 'ativo = "' . $filtroStatus . '"' : null
+    strlen($busca) ? 'nome LIKE "%' . str_replace(' ', '%', $busca) . '%"' : null    
 ];
 $condicoes = array_filter($condicoes);
 $where = implode(' AND ', $condicoes);
@@ -30,7 +25,7 @@ $quantidadeAlunos = Aluno::getQuantidadeAlunos();
 $obPagination = new Pagination($quantidadeAlunos, $_GET['pagina'] ?? 1, 3);
 
 // alunos da página atual
-$alunos = Aluno::getAlunos(null, 'id ASC', $obPagination->getLimit());
+$alunos = Aluno::getAlunos($where, 'id desc', $obPagination->getLimit());
 $currentPage = $_GET['pagina'] ?? 1;
 $currentPage = (int) $currentPage;
 

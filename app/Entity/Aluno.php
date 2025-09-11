@@ -12,6 +12,8 @@ class Aluno
 
     public $nome;
 
+    public $matricula;
+
     public $cpf;
 
     public $telefone;
@@ -25,6 +27,8 @@ class Aluno
     public $periodo;
 
     public $data;
+     
+    public $nivel;
 
     public $senha;
 
@@ -48,6 +52,8 @@ class Aluno
             'curso' => $this->curso,
             'periodo' => $this->periodo,
             'dtn' => $this->data,
+            'nivel' => $this->nivel,
+            'matricula' => $this-> matricula,
             'senha' => $this->senha
         ]);
         //RETORNAR SUCESSO 
@@ -65,6 +71,8 @@ class Aluno
             'curso' => $this->curso,
             'periodo' => $this->periodo,
             'dtn' => $this->data,
+            'nivel' => $this->nivel,
+            'matricula' => $this-> matricula,
             'senha' => $this->senha
         ]);
     }
