@@ -14,20 +14,33 @@ if (isset($_GET['status'])) {
 
 $resultados = '';
 foreach ($vagas as $vaga) {
+    // Botões de ação conforme nível do usuário
+    $acoes = '';
+
+    if ($_SESSION['aluno']['nivel'] == 2) {
+        // Admin → editar/excluir
+        $acoes = '
+          <a href="editar.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-primary me-1">
+            <i class="bi bi-pencil"></i> Editar
+          </a>
+          <a href="excluir.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-danger">
+            <i class="bi bi-trash"></i> Excluir
+          </a>';
+    } elseif ($_SESSION['aluno']['nivel'] == 1) {
+        // Aluno → candidatar-se
+        $acoes = '
+          <a href="candidatar.php?vaga=' . $vaga->id . '" class="btn btn-sm btn-success">
+            <i class="bi bi-hand-index"></i> Candidatar-se
+          </a>';
+    }
+
     $resultados .= '<tr>
         <td>' . $vaga->id . '</td>
         <td>' . $vaga->titulo . '</td>
         <td>' . $vaga->descricao . '</td>
         <td>' . ($vaga->ativo == 's' ? 'Ativo' : 'Inativo') . '</td>
         <td>' . date('d/m/Y à\s H:i:s', strtotime($vaga->data)) . '</td>
-        <td>
-          <a href="editar.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-primary me-1">
-            <i class="bi bi-pencil"></i> Editar
-          </a>
-          <a href="excluir.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-danger">
-            <i class="bi bi-trash"></i> Excluir
-          </a>
-        </td>
+        <td>' . $acoes . '</td>
     </tr>';
 }
 
@@ -76,12 +89,14 @@ $paginacao .= '</ul></nav>';
     <!-- MENSAGEM -->
     <?= $mensagem ?>
 
-    <!-- BOTÃO NOVA VAGA -->
+    <!-- BOTÃO NOVA VAGA (só aparece se for admin) -->
+    <?php if ($_SESSION['aluno']['nivel'] == 2): ?>
     <section class="mb-4">
         <a href="cadastrar.php" class="btn btn-baby-blue">
             <i class="bi bi-plus-circle"></i> Nova vaga
         </a>
     </section>
+    <?php endif; ?>
 
     <!-- FORMULÁRIO DE FILTRO -->
     <section>
@@ -93,7 +108,7 @@ $paginacao .= '</ul></nav>';
 
             <div class="col-md-4">
                 <label class="form-label">Status</label>
-                <select name="filtroStatus" class="form-select">
+                <select name="status" class="form-control">
                     <option value="">Ativa/Inativa</option>
                     <option value="s" <?= $filtroStatus == 's' ? 'selected' : '' ?>>Ativa</option>
                     <option value="n" <?= $filtroStatus == 'n' ? 'selected' : '' ?>>Inativa</option>

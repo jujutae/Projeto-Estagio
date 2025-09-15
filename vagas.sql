@@ -26,14 +26,17 @@ create table alunos(
 );
 
 
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Tempo de geração: 04/09/2025 às 17:06
--- Versão do servidor: 8.0.39-0ubuntu0.24.04.2
--- Versão do PHP: 8.3.6
+CREATE TABLE candidaturas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    aluno_id INT NOT NULL,
+    vaga_id INT NOT NULL,
+    data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (aluno_id) REFERENCES alunos(id),
+    FOREIGN KEY (vaga_id) REFERENCES vagas(id)
+);
+
+
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

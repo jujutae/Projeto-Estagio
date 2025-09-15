@@ -12,10 +12,10 @@ Login::requiredLogin();
 $busca = filter_input(INPUT_GET, 'busca', FILTER_SANITIZE_STRING);
 
 // filtro status
-$filtroStatus = filter_input(INPUT_GET, 'filterStatus', FILTER_SANITIZE_STRING);
+$filtroStatus = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_STRING);
 $filtroStatus = in_array($filtroStatus, ['s', 'n']) ? $filtroStatus : '';
 
-// condições SQL
+// condições SQL\A
 $condicoes = [
     strlen($busca) ? 'titulo LIKE "%' . str_replace(' ', '%', $busca) . '%"' : null,
     strlen($filtroStatus) ? 'ativo = "' . $filtroStatus . '"' : null
@@ -31,6 +31,9 @@ $obPagination = new Pagination($quantidadeVagas, $_GET['pagina'] ?? 1, 4);
 
 // vagas da página atual
 $vagas = Vaga::getVagas($where, null, $obPagination->getLimit());
+
+
+
 
 include __DIR__ . '/../includes/header.php';
 include __DIR__ . '/listagem.php';

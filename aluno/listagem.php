@@ -18,9 +18,9 @@ foreach ($alunos as $aluno) {
     $resultados .= '<tr>
     <td>' . $aluno->id . '</td>
     <td>' . $aluno->nome . '</td>
+    <td>' . $aluno->matricula . '</td>
     <td>' . $aluno->cpf . '</td>
     <td>' . $aluno->telefone . '</td>
-    <td>' . $aluno->email_pessoal . '</td>
     <td>' . $aluno->email_institucional . '</td>
     <td>' . $aluno->curso . '</td>
     <td>' . $aluno->periodo . '</td>
@@ -85,7 +85,6 @@ $paginacao .= '</ul></nav>';
     <!-- Mensagem de status -->
     <?= $mensagem ?>
 
-    <!-- Cabeçalho da listagem -->
     <section class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0">Lista de Alunos</h2>
         <a href="cadastrar.php" class="btn btn-baby-blue">
@@ -96,31 +95,20 @@ $paginacao .= '</ul></nav>';
     <section class="mb-4">
         <form method="get" class="row g-3">
             <div class="col-md-4">
-                <input type="text" name="busca" class="form-control" placeholder="Pesquisar por nome" value="<?= $_GET['busca'] ?? '' ?>">
-            </div>
-            <div class="col-md-3">
-                <select name="Ano" class="form-select">
-                    <option value="">-- Ano--</option>
-                    <option value="1" <?= (($_GET['periodo'] ?? '') == '1') ? 'selected' : '' ?>>1º Ano</option>
-                    <option value="2" <?= (($_GET['periodo'] ?? '') == '2') ? 'selected' : '' ?>>2º Ano</option>
-                    <option value="3" <?= (($_GET['periodo'] ?? '') == '3') ? 'selected' : '' ?>>3º Ano</option>
-                </select>
+                <input type="text" name="busca" class="form-control" placeholder="Pesquisar por nome" value="<?= $busca ?>">
             </div>
             <div class="col-md-3">
                 <select name="curso" class="form-select">
                     <option value="">-- Curso --</option>
-                    <option value="Meio Ambiente" <?= (($_GET['curso'] ?? '') == 'Meio Ambiente') ? 'selected' : '' ?>>Meio Ambiente </option>
-                    <option value="Administração" <?= (($_GET['curso'] ?? '') == 'Administração') ? 'selected' : '' ?>>Administração</option>
-                    <option value="Informatica" <?= (($_GET['curso'] ?? '') == 'Informatica') ? 'selected' : '' ?>>Informatica</option>
+                    <option value="Técnico em Meio Ambiente - Integrada - Série Anual" <?= ($curso == 'Meio Ambiente') ? 'selected' : '' ?>>Técnico em Meio Ambiente - Integrada - Série Anual </option>
+                    <option value="Técnico em Administração - Integrada - Série Anual" <?= ($curso == 'Administração') ? 'selected' : '' ?>>Técnico em Administração - Integrada - Série Anual</option>
+                    <option value="Técnico em Informatica - Integrada - Série Anual" <?= ($curso == 'Informatica') ? 'selected' : '' ?>>Técnico em Informatica - Integrada - Série Anual</option>
                 </select>
             </div>
             <div class="col-md-2 d-flex">
                 <button type="submit" class="btn btn-baby-blue me-2 flex-grow-1">
-                    <i class="bi bi-search"></i> Buscar
+                    <i class="bi bi-funnel"></i> Buscar
                 </button>
-                <a href="listar.php" class="btn btn-outline-secondary flex-grow-1">
-                    <i class="bi bi-x-circle"></i> Limpar
-                </a>
             </div>
         </form>
     </section>
@@ -135,9 +123,9 @@ $paginacao .= '</ul></nav>';
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
+                        <th>Matricula</th>
                         <th>CPF</th>
                         <th>Telefone</th>
-                        <th>Email Pessoal</th>
                         <th>Email Institucional</th>
                         <th>Curso</th>
                         <th>Período</th>

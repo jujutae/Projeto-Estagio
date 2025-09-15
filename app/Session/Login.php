@@ -27,22 +27,24 @@ class Login
         $_SESSION['aluno'] = [
             'id'   => $aluno->id,
             'nome' => $aluno->nome,
-            'cpf'  => $aluno->cpf
+            'cpf'  => $aluno->cpf,
+            'nivel' => $aluno->nivel
         ];
 
         header('location: /si/index.php');
         exit;
     }
 
-    public static function logout(){
-    self::init();
+    public static function logout()
+    {
+        self::init();
 
-    unset($_SESSION['aluno']);
+        unset($_SESSION['aluno']);
 
-    header('location: /si/login.php');
-    exit;
+        header('location: /si/login.php');
+        exit;
     }
-    
+
     public static function isLogged()
     {
         self::init();
@@ -61,6 +63,26 @@ class Login
     {
         if (self::isLogged()) {
             header('location: /si/index.php');
+            exit;
+        }
+    }
+
+    public static function requireAdmin()
+    {
+        self::init();
+
+        if (!isset($_SESSION['aluno']['nivel']) || $_SESSION['aluno']['nivel'] != 2) {
+            header('location: /si/index.php?status=sem_permissao');
+            exit;
+        }
+    }
+
+    public static function requireAluno()
+    {
+        self::init();
+
+        if (!isset($_SESSION['aluno']['nivel']) || $_SESSION['aluno']['nivel'] != 1) {
+            header('location: /si/index.php?status=sem_permissao');
             exit;
         }
     }
