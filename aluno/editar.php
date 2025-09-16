@@ -41,7 +41,7 @@ if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_pesso
    $obAluno->periodo  = $_POST['periodo'];
    $obAluno->data     = $_POST['data'];
    $obAluno->matricula = $_POST['matricula'];
-  // $obAluno->nivel = 1;
+   //$obAluno->nivel = 1;
    $obAluno->atualizar();
 
    header('location: listar.php?status=success');
