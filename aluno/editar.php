@@ -12,7 +12,7 @@ Login::requiredLogin();
 
 
 if (!isset($_GET['id']) or !is_numeric($_GET['id'])) {
-   header('location: listar.php?status=error');
+   header('location: /si/aluno/listar.php?status=error');
    exit;
 }
 //CONSULTAR VAGA
@@ -24,7 +24,7 @@ exit;*/
 
 //validação a aluno
 if (!$obAluno instanceof Aluno) {
-   header('location: listar.php?status=error');
+   header('location: /si/aluno/listar.php?status=error');
    exit;
 }
 
@@ -44,7 +44,7 @@ if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_pesso
    //$obAluno->nivel = 1;
    $obAluno->atualizar();
 
-   header('location: listar.php?status=success');
+   header('location: /si/aluno/listar.php?status=success');
    exit;
 }
 

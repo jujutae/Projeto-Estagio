@@ -138,9 +138,9 @@ $usuario = $alunoLogado ?
       font-size: 1.2rem;
       color: var(--strong-blue);
     }
-
   </style>
 </head>
+
 <body class="position-relative">
 
   <!-- NAVBAR -->
@@ -161,9 +161,12 @@ $usuario = $alunoLogado ?
           <li class="nav-item">
             <a class="nav-link" href="/si/index.php">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/si/aluno/listar.php">Alunos</a>
-          </li>
+          <?php if (isset($alunoLogado['nivel']) && $alunoLogado['nivel'] == 2): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="/si/aluno/listar.php">Alunos</a>
+            </li>
+          <?php endif; ?>
+
           <li class="nav-item">
             <a class="nav-link" href="/si/vaga/listar.php">Vagas de Estágio</a>
           </li>
@@ -177,5 +180,3 @@ $usuario = $alunoLogado ?
       </div>
     </div>
   </nav>
-
- 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Entity\Inscricao;
+
 $mensagem = '';
 if (isset($_GET['status'])) {
     switch ($_GET['status']) {
@@ -17,21 +19,35 @@ foreach ($vagas as $vaga) {
     // Botões de ação conforme nível do usuário
     $acoes = '';
 
-    if ($_SESSION['aluno']['nivel'] == 2) {
+    if ($alunoLogado['nivel'] == 2) {
         // Admin → editar/excluir
-        $acoes = '
+        $acoes .= '
           <a href="editar.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-primary me-1">
             <i class="bi bi-pencil"></i> Editar
           </a>
           <a href="excluir.php?id=' . $vaga->id . '" class="btn btn-sm btn-outline-danger">
             <i class="bi bi-trash"></i> Excluir
           </a>';
-    } elseif ($_SESSION['aluno']['nivel'] == 1) {
+    } elseif ($alunoLogado['nivel'] == 1) {
         // Aluno → candidatar-se
-        $acoes = '
-          <a href="candidatar.php?vaga=' . $vaga->id . '" class="btn btn-sm btn-success">
-            <i class="bi bi-hand-index"></i> Candidatar-se
-          </a>';
+        $inscricao = Inscricao::getInscricaoPorAluno($alunoLogado['id']);
+        if ($inscricao) {
+            if ($inscricao->id_vaga == $vaga->id) {
+                $acoes  .= '
+                <a href="/si/inscricao/editar.php?vaga=' . $vaga->id . '" class="btn btn-sm btn-primary">
+                  <i class="bi bi-hand-index"></i> Inscrito
+                </a>';
+            } else {
+                $acoes  .= '
+                <button class="btn btn-sm btn-secondary"> <i class="bi bi-hand-index"></i> ---------- </button>';
+            }
+        }else{
+            $acoes .= '
+            <a href="/si/inscricao/candidatar.php?vaga=' . $vaga->id . '" class="btn btn-sm btn-success">
+              <i class="bi bi-hand-index"></i> Candidatar-se
+            </a>';
+        }
+       
     }
 
     $resultados .= '<tr>
@@ -91,11 +107,11 @@ $paginacao .= '</ul></nav>';
 
     <!-- BOTÃO NOVA VAGA (só aparece se for admin) -->
     <?php if ($_SESSION['aluno']['nivel'] == 2): ?>
-    <section class="mb-4">
-        <a href="cadastrar.php" class="btn btn-baby-blue">
-            <i class="bi bi-plus-circle"></i> Nova vaga
-        </a>
-    </section>
+        <section class="mb-4">
+            <a href="cadastrar.php" class="btn btn-baby-blue">
+                <i class="bi bi-plus-circle"></i> Nova vaga
+            </a>
+        </section>
     <?php endif; ?>
 
     <!-- FORMULÁRIO DE FILTRO -->

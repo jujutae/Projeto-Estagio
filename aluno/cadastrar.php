@@ -28,7 +28,7 @@ if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_insti
        $obAluno->nivel = 1;
        $obAluno->cadastrar();
 
-       header('location: listar.php?status=success');
+       header('location: /si/aluno/listar.php?status=success');
        exit;
 }
 

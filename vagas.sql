@@ -26,13 +26,14 @@ create table alunos(
 );
 
 
-CREATE TABLE candidaturas (
+CREATE TABLE inscricao (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    aluno_id INT NOT NULL,
-    vaga_id INT NOT NULL,
-    data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (aluno_id) REFERENCES alunos(id),
-    FOREIGN KEY (vaga_id) REFERENCES vagas(id)
+    id_aluno INT NOT NULL unique,
+    id_vaga INT NOT NULL,
+    data_inscricao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status varchar(50),
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id),
+    FOREIGN KEY (id_vaga) REFERENCES vagas(id)
 );
 
 

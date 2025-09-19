@@ -42,20 +42,4 @@ include __DIR__.'/listagem.php';
 
 ?>
 
-<?php if ($_SESSION['usuario_nivel'] == 2): ?>
-  <!-- Botões de administração -->
-  <a href="editar.php?id=<?= $aluno->id ?>" class="btn btn-sm btn-outline-primary me-1">
-    <i class="bi bi-pencil"></i>
-  </a>
-  <a href="excluir.php?id=<?= $aluno->id ?>" class="btn btn-sm btn-outline-danger">
-    <i class="bi bi-trash"></i>
-  </a>
-<?php endif; ?>
-
-<?php if ($_SESSION['usuario_nivel'] == 1): ?>
-  <!-- Botão para se candidatar à vaga -->
-  <a href="candidatar.php?id=<?= $vaga->id ?>" class="btn btn-sm btn-success">
-    <i class="bi bi-hand-index"></i> Candidatar-se
-  </a>
-<?php endif; ?>
 
