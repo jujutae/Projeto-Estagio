@@ -80,6 +80,12 @@ class Inscricao
     }
  
     public static function getInscricaoPorAluno($aluno){
-                return(new DataBase('inscricao'))->select('id_aluno = ' . $aluno)->fetchObject(self::class);; 
+                $inscricao = (new DataBase('inscricao')) ->select('id_aluno  = ' . $aluno)->fetchObject(self::class);
+            if($inscricao){
+                $inscricao->aluno = Aluno::getAluno($inscricao->id_aluno);
+                $inscricao->vaga= Vaga::getVaga($inscricao->id_vaga);
+            }
+        
+            return $inscricao;
     }
 }

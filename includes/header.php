@@ -181,7 +181,7 @@ $usuario = $alunoLogado ?
       
         <!-- Identificação do usuário -->
         <div class="user-info" >
-        <a href="/si/aluno/perfil.php" class="nav-link d-flex ">
+        <a href="/si/aluno/perfil.php" class="nav-link ">
             <img src="<?= $alunoLogado['foto'] ?? '/si/assets/images/default-avatar.png' ?>" 
                  alt="Foto do usuário" 
                  width="30" 

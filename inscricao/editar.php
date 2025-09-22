@@ -1,55 +1,51 @@
 <?php
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use \App\Session\Login;
-use \App\Entity\Aluno;
+use App\Entity\Inscricao;
+use App\Entity\Vaga;
 
 Login::requiredLogin();
 
 $alunoLogado = Login::getAlunoLogado();
 
 // buscar os dados atuais do aluno
-$aluno = Aluno::getAluno($alunoLogado['id']);
-
-if (!$aluno instanceof Aluno) {
-    header('location: /si/index.php?status=error');
-    exit;
-}
-
+$inscricao = Inscricao::getInscricaoPorAluno($alunoLogado['id']);
+$vagas = Vaga::getVagas();
 // processar formulário
-if (isset($_POST['nome'], $_POST['telefone'], $_POST['email_pessoal'])) {
-    $aluno->nome           = $_POST['nome'];
-    $aluno->telefone       = $_POST['telefone'];
-    $aluno->email_pessoal  = $_POST['email_pessoal'];
+if (isset($_POST['vaga'])) {
 
-    $aluno->atualizar();
 
-    header('location: editar.php?status=sucess');
-    exit;
+  $inscricao->vaga->id = $_POST['vaga'];
+  $inscricao->atualizar();
+
+  header('location: /si/index.php?status=sucess');
+  exit;
+}
+$resultados = '';
+
+
+
+foreach ($vagas as $vaga) {
+  $resultados .= '<option value="' . $vaga->id . '">' . $vaga->titulo . '</option>';
 }
 
-include __DIR__.'/../includes/header.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 
 <h2>Editar Meus Dados</h2>
 
 <form method="post">
   <div class="mb-3">
-    <label class="form-label">Nome</label>
-    <input type="text" name="nome" class="form-control" value="<?= htmlspecialchars($aluno->nome) ?>" required>
+    <label class="form-label">Selecione a Vaga!</label>
+    <select name="vaga">
+      <option>--------</option>
+      <?= $resultados ?>
+    </select>
   </div>
 
-  <div class="mb-3">
-    <label class="form-label">Telefone</label>
-    <input type="text" name="telefone" class="form-control" value="<?= htmlspecialchars($aluno->telefone) ?>" required>
-  </div>
-
-  <div class="mb-3">
-    <label class="form-label">Email Pessoal</label>
-    <input type="email" name="email_pessoal" class="form-control" value="<?= htmlspecialchars($aluno->email_pessoal) ?>" required>
-  </div>
 
   <button type="submit" class="btn btn-success">Salvar Alterações</button>
 </form>
 
-<?php include __DIR__.'/../includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>
