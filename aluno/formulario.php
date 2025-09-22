@@ -1,10 +1,8 @@
 <main class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 
-    <div class="w-50"> <!-- Largura do formulário, você pode ajustar -->
-        <section class="mb-3 text-center">
-            <a href="listar.php">
-                <button class="btn btn-success">Voltar</button>
-            </a>
+<div class="mt-6">
+    
+
         </section>
 
         <h2 class="mt-3 text-center"><?= TITLE ?></h2>
@@ -13,37 +11,37 @@
 
             <div class="form-group">
                 <label>Nome</label>
-                <input type="text" class="form-control" name="nome" value="<?= $obAluno->nome ?>" required>
+                <input type="text" class="form-control" name="nome" value="<?= $aluno->nome ?>" required>
             </div>
 
             <div class="form-group">
                 <label>CPF</label>
-                <input type="number" class="form-control" name="cpf" value="<?= $obAluno->cpf ?>" required>
+                <input type="number" class="form-control" name="cpf" value="<?= $aluno->cpf ?>" required>
             </div>
 
             <div class="form-group">
                 <label>Telefone</label>
-                <input type="text" class="form-control" name="telefone" value="<?= $obAluno->telefone ?>" required>
+                <input type="text" class="form-control" name="telefone" value="<?= $aluno->telefone ?>" required>
             </div>
 
             <div class="form-group">
                 <label>Matricula</label>
-                <input type="number" class="form-control" name="matricula" value="<?= $obAluno->matricula ?>" required>
+                <input type="number" class="form-control" name="matricula" value="<?= $aluno->matricula ?>" required>
             </div>
 
             <div class="form-group">
                 <label>Email pessoal</label>
-                <input type="email" class="form-control" name="email_pessoal" value="<?= $obAluno->email_pessoal ?>" required>
+                <input type="email" class="form-control" name="email_pessoal" value="<?= $aluno->email_pessoal ?>" required>
             </div>
 
             <div class="form-group">
                 <label>Email Institucional</label>
-                <input type="email" class="form-control" name="email_institucional" value="<?= $obAluno->email_institucional ?>" required>
+                <input type="email" class="form-control" name="email_institucional" value="<?= $aluno->email_institucional ?>" required>
             </div>
 
             <div class="form-group">
                 <label>Curso</label>
-                <input type="text" class="form-control" name="curso" value="<?= $obAluno->curso ?>" required>
+                <input type="text" class="form-control" name="curso" value="<?= $aluno->curso ?>" required>
             </div>
 
             <div class="form-group">
@@ -63,16 +61,18 @@
 
             <div class="form-group">
                 <label>Data de Nascimento</label>
-                <input type="date" class="form-control" name="dtn" value="<?= $obAluno->data ?>" required>
+                <input type="date" class="form-control" name="dtn" value="<?= $aluno->data ?>" required>
             </div>
 
             <div class="form-group">
                 <label>Senha</label>
-                <input type="password" class="form-control" name="senha" value="<?= $obAluno->senha ?>" required>
+                <input type="password" class="form-control" name="senha" value="<?= $aluno->senha ?>" required>
             </div>
             
-            <div class="form-group mt-3 text-center">
-                <button type="submit" class="btn btn-success">Enviar</button>
+             <!-- Botões lado a lado -->
+             <div class="form-group mt-3 d-flex justify-content-between">
+                <a href="<?= $voltar ?>" class="btn btn-secondary">Voltar</a>
+                <button type="submit" class="btn btn-success">Salvar</button>
             </div>
 
         </form>

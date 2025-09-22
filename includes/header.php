@@ -1,8 +1,11 @@
 <?php
-
 use \App\Session\Login;
 
 $alunoLogado = Login::getAlunoLogado();
+
+// Foto padrão caso não tenha
+$foto = $alunoLogado['foto'] ?? '/si/assets/images/default-avatar.png';
+$nome  = $alunoLogado['nome'] ?? 'Usuário';
 
 $usuario = $alunoLogado ?
   '<span class="navbar-text me-3 text-baby-blue fw-bold">' . $alunoLogado['nome'] . '</span>
@@ -11,14 +14,13 @@ $usuario = $alunoLogado ?
    <a href="/si/login.php" class="btn btn-baby-blue me-2">Entrar</a>';
 
 ?>
-
 <!doctype html>
 <html lang="pt">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WDEV Vagas!</title>
+  <title>Sistema Integrado-Estagio!</title>
 
   <!-- Bootstrap CSS + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -150,6 +152,7 @@ $usuario = $alunoLogado ?
       <a class="navbar-brand d-flex align-items-center" href="/si/index.php">
         <strong>WDEV Vagas</strong>
       </a>
+      
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -164,18 +167,27 @@ $usuario = $alunoLogado ?
           <?php if (isset($alunoLogado['nivel']) && $alunoLogado['nivel'] == 2): ?>
             <li class="nav-item">
               <a class="nav-link" href="/si/aluno/listar.php">Alunos</a>
+        
             </li>
           <?php endif; ?>
+          
 
           <li class="nav-item">
             <a class="nav-link" href="/si/vaga/listar.php">Vagas de Estágio</a>
           </li>
         </ul>
+       
 
+      
         <!-- Identificação do usuário -->
-        <div class="user-info">
-          <i class="bi bi-person-circle"></i>
-          <?= $usuario ?>
+        <div class="user-info" >
+        <a href="/si/aluno/perfil.php" class="nav-link d-flex ">
+            <img src="<?= $alunoLogado['foto'] ?? '/si/assets/images/default-avatar.png' ?>" 
+                 alt="Foto do usuário" 
+                 width="30" 
+                 height="30" 
+                 class="rounded-circle me-2">
+          <?= $usuario ?></a>
         </div>
       </div>
     </div>

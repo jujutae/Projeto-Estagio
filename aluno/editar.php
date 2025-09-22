@@ -9,49 +9,59 @@ use \App\Session\Login;
 
 Login::requiredLogin();
 
-
+// usuário logado
+$alunoLogado = Login::getAlunoLogado();
 
 if (!isset($_GET['id']) or !is_numeric($_GET['id'])) {
+    header('location: /si/aluno/listar.php?status=error');
+    exit;
+}
+
+// consultar aluno
+$aluno = Aluno::getAluno($_GET['id']);
+
+// validação do aluno
+if (!$aluno instanceof Aluno) {
    header('location: /si/aluno/listar.php?status=error');
    exit;
 }
-//CONSULTAR VAGA
-$obAluno = Aluno::getAluno($_GET['id']);
-/*echo "<pre>";  
-print_r($obAluno); 
-echo "</pre>"; 
-exit;*/
 
-//validação a aluno
-if (!$obAluno instanceof Aluno) {
-   header('location: /si/aluno/listar.php?status=error');
+// segurança extra: aluno comum só pode editar o próprio perfil
+if ($alunoLogado['nivel'] != 2 && $alunoLogado['id'] != $aluno->id) {
+   header('location: /si/aluno/perfil.php?status=error');
    exit;
 }
 
-//VALIDAÇÃO DO POST
-if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_pessoal'], $_POST['email_institucional'], $_POST['curso'], $_POST['periodo'], $_POST['data'])) {
+$voltar = ($alunoLogado['nivel'] == 2) ? 'listar.php' : 'perfil.php';
 
-   //$obAluno= new Aluno;
-   $obAluno->nome     = $_POST['nome'];
-   $obAluno->cpf  = $_POST['cpf'];
-   $obAluno->telefone      = $_POST['telefone'];
-   $obAluno->email_pessoal     = $_POST['email_pessoal'];
-   $obAluno->email_institucional  = $_POST['email_institucional'];
-   $obAluno->curso     = $_POST['curso'];
-   $obAluno->periodo  = $_POST['periodo'];
-   $obAluno->data     = $_POST['data'];
-   $obAluno->matricula = $_POST['matricula'];
-   //$obAluno->nivel = 1;
-   $obAluno->atualizar();
+// validação do POST
+if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_pessoal'], $_POST['email_institucional'], $_POST['curso'], $_POST['periodo'], $_POST['data'], $_POST['matricula'])) {
 
-   header('location: /si/aluno/listar.php?status=success');
-   exit;
+    $aluno->nome               = $_POST['nome'];
+    $aluno->cpf                = $_POST['cpf'];
+    $aluno->telefone           = $_POST['telefone'];
+    $aluno->email_pessoal      = $_POST['email_pessoal'];
+    $aluno->email_institucional= $_POST['email_institucional'];
+    $aluno->curso              = $_POST['curso'];
+    $aluno->periodo            = $_POST['periodo'];
+    $aluno->data               = $_POST['data'];
+    $aluno->matricula          = $_POST['matricula'];
+
+    $aluno->atualizar();
+
+    // redireciona de acordo com o nível
+    if ($alunoLogado['nivel'] == 2) {
+        header('location: /si/aluno/listar.php?status=success');
+    } else {
+        header('location: /si/aluno/perfil.php?status=success');
+    }
+    exit;
 }
-
 
 include __DIR__ . '/../includes/header.php';
 include __DIR__ . '/formulario.php';
 include __DIR__ . '/../includes/footer.php';
+
 /*
 echo "<pre>";  
 print_r($_POST); 
