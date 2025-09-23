@@ -35,7 +35,7 @@ class DataBase
      * senha do banco de dados 
      *@var string 
      */
-    const PASS = '123';
+    const PASS = '';
 
 
     /**
