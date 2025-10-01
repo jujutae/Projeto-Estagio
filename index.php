@@ -19,7 +19,6 @@ use \App\Entity\Vaga;
 $alunoLogado = Login::getAlunoLogado();
 $vagas = Vaga::getVagas(null, 'id DESC', 3); // últimas 3 vagas
 
-include __DIR__.'/includes/formulario-upload.php';
 include __DIR__ . '/includes/header.php';
 
 /*echo "<pre>";  

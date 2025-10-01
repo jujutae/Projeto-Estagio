@@ -4,9 +4,11 @@ use \App\Session\Login;
 $alunoLogado = Login::getAlunoLogado();
 
 // Foto padrão caso não tenha
-$foto = $alunoLogado['foto'] ?? '/si/assets/images/default-avatar.png';
-$nome  = $alunoLogado['nome'] ?? 'Usuário';
+$foto = $alunoLogado 
+    ? '/si/includes/imagens/alunos/'.$alunoLogado['cpf'].'.png' : '/si/includes/imagens/avatar.png';
 
+//echo $foto;
+//exit;
 $usuario = $alunoLogado ?
   '<span class="navbar-text me-3 text-baby-blue fw-bold">' . $alunoLogado['nome'] . '</span>
    <a href="/si/logout.php" class="btn btn-danger me-2">Sair</a>' :
@@ -182,7 +184,7 @@ $usuario = $alunoLogado ?
         <!-- Identificação do usuário -->
         <div class="user-info" >
         <a href="/si/aluno/perfil.php" class="nav-link ">
-            <img src="<?= $alunoLogado['foto'] ?? '/si/assets/images/default-avatar.png' ?>" 
+            <img src="<?=$foto?>"
                  alt="Foto do usuário" 
                  width="30" 
                  height="30" 

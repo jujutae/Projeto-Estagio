@@ -1,14 +1,17 @@
 <main class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 
-<div class="mt-6">
-    
+    <div class="mt-6">
+
 
         </section>
 
         <h2 class="mt-3 text-center"><?= TITLE ?></h2>
 
-        <form method="post">
-
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Arquivos</label>
+                <input type="file" name="arquivo">
+            </div>
             <div class="form-group">
                 <label>Nome</label>
                 <input type="text" class="form-control" name="nome" value="<?= $aluno->nome ?>" required>
@@ -26,7 +29,7 @@
 
             <div class="form-group">
                 <label>Matricula</label>
-                <input type="number" class="form-control" name="matricula" value="<?= $aluno->matricula ?>" required>
+                <input type="text" class="form-control" name="matricula" value="<?= $aluno->matricula ?>" required>
             </div>
 
             <div class="form-group">
@@ -46,7 +49,7 @@
 
             <div class="form-group">
                 <label>Período</label>
-                <select class= "form-select">
+                <select class="form-select">
                     <option value="1">1º</option>
                     <option value="2">2º</option>
                     <option value="3">3º</option>
@@ -55,7 +58,7 @@
                     <option value="6">6º</option>
                     <option value="7">7º</option>
                     <option value="8">8º</option>
-                
+
                 </select>
             </div>
 
@@ -66,11 +69,11 @@
 
             <div class="form-group">
                 <label>Senha</label>
-                <input type="password" class="form-control" name="senha" value="<?= $aluno->senha ?>" required>
+                <input type="password" class="form-control" name="senha" value="" required>
             </div>
-            
-             <!-- Botões lado a lado -->
-             <div class="form-group mt-3 d-flex justify-content-between">
+
+            <!-- Botões lado a lado -->
+            <div class="form-group mt-3 d-flex justify-content-between">
                 <a href="<?= $voltar ?>" class="btn btn-secondary">Voltar</a>
                 <button type="submit" class="btn btn-success">Salvar</button>
             </div>

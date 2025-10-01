@@ -6,6 +6,7 @@ define('TITLE', 'Editar aluno');
 
 use \App\Entity\Aluno;
 use \App\Session\Login;
+use \App\Files\Upload;
 
 Login::requiredLogin();
 
@@ -35,7 +36,7 @@ if ($alunoLogado['nivel'] != 2 && $alunoLogado['id'] != $aluno->id) {
 $voltar = ($alunoLogado['nivel'] == 2) ? 'listar.php' : 'perfil.php';
 
 // validação do POST
-if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_pessoal'], $_POST['email_institucional'], $_POST['curso'], $_POST['periodo'], $_POST['data'], $_POST['matricula'])) {
+if (isset($_POST['nome'], $_POST['cpf'])) {
 
     $aluno->nome               = $_POST['nome'];
     $aluno->cpf                = $_POST['cpf'];
@@ -44,9 +45,16 @@ if (isset($_POST['nome'], $_POST['cpf'], $_POST['telefone'], $_POST['email_pesso
     $aluno->email_institucional= $_POST['email_institucional'];
     $aluno->curso              = $_POST['curso'];
     $aluno->periodo            = $_POST['periodo'];
-    $aluno->data               = $_POST['data'];
+    $aluno->data               = $_POST['dtn'];
     $aluno->matricula          = $_POST['matricula'];
 
+
+    if(isset($_FILES['arquivo'])){
+
+        $upload = new Upload($_FILES['arquivo']);
+        $upload->upload(__DIR__.'/../includes/imagens/alunos' ,$aluno->cpf);
+   
+    }
     $aluno->atualizar();
 
     // redireciona de acordo com o nível

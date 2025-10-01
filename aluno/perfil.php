@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
+
 use \App\Session\Login;
 use \App\Entity\Aluno;
 
@@ -15,47 +16,84 @@ $aluno = Aluno::getAluno($alunoLogado['id']);
 
 include __DIR__ . '/../includes/header.php';
 ?>
+<main class="container my-4">
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
 
-<main class="container py-4">
-    <h2>Meu Perfil</h2>
-    <table class="table table-bordered">
-        <tr>
-            <th>Nome</th>
-            <td><?= $aluno->nome ?></td>
-        </tr>
-        <tr>
-            <th>Matrícula</th>
-            <td><?= $aluno->matricula ?></td>
-        </tr>
-        <tr>
-            <th>CPF</th>
-            <td><?= $aluno->cpf ?></td>
-        </tr>
-        <tr>
-            <th>Telefone</th>
-            <td><?= $aluno->telefone ?></td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td><?= $aluno->email_institucional ?></td>
-        </tr>
-        <tr>
-            <th>Curso</th>
-            <td><?= $aluno->curso ?></td>
-        </tr>
-        <tr>
-            <th>Período</th>
-            <td><?= $aluno->periodo ?></td>
-        </tr>
-        <tr>
-            <th>Data de cadastro</th>
-            <td><?= date('d/m/Y H:i', strtotime($aluno->data)) ?></td>
-        </tr>
-    </table>
+            <!-- Título -->
+            <h3 class="text-center mb-4 fw-bold">Ficha do Aluno</h3>
 
-    <a href="editar.php?id=<?= $aluno->id ?>" class="btn btn-primary">
-        <i class="bi bi-pencil"></i> Editar Perfil
-    </a>
+            <div class="row">
+                <!-- Foto -->
+                <div class="col-md-3 text-center">
+                    <?php if ($aluno->cpf) : ?>
+                        <img src="/si/includes/imagens/alunos/<?= $aluno->cpf ?>.png"
+                            alt="Foto do aluno"
+                            class="img-thumbnail rounded shadow-sm"
+                            style="width:180px; height:180px; object-fit:cover;">
+                    <?php else : ?>
+                        <img src="/../includes/imagens/avatar.png"
+                            alt="Sem foto"
+                            class="img-thumbnail rounded shadow-sm"
+                            style="width:180px; height:180px; object-fit:cover;">
+                    <?php endif; ?>
+                </div>
+
+                <!-- Dados principais -->
+                <div class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nome</label>
+                            <p class="form-control-plaintext border p-2"><?= $aluno->nome ?></p>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Matrícula</label>
+                            <p class="form-control-plaintext border p-2"><?= $aluno->matricula ?></p>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">CPF</label>
+                            <p class="form-control-plaintext border p-2"><?= $aluno->cpf ?></p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Data de Nascimento</label>
+                            <p class="form-control-plaintext border p-2"><?= date('d/m/Y', strtotime($aluno->data)) ?></p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Telefone</label>
+                            <p class="form-control-plaintext border p-2"><?= $aluno->telefone ?></p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Email</label>
+                            <p class="form-control-plaintext border p-2"><?= $aluno->email_institucional ?></p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Curso</label>
+                            <p class="form-control-plaintext border p-2"><?= $aluno->curso ?></p>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Período</label>
+                            <p class="form-control-plaintext border p-2"><?= $aluno->periodo ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão editar -->
+            <div class="text-end mt-4">
+                <a href="editar.php?id=<?= $aluno->id ?>" class="btn btn-primary">
+                    <i class="bi bi-pencil"></i> Editar Perfil
+                </a>
+            </div>
+
+        </div>
+    </div>
 </main>
+
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

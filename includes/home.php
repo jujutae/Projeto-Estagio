@@ -39,6 +39,4 @@
         </div>
 
     </div>
-
-    <a href="/si/vaga/listar.php" class="btn btn-outline-primary mt-3">Ver Todas as Vagas</a>
 </div>

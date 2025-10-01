@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Upload;
+namespace App\Files;
 
-class Upload
-{
+class Upload{
 
 
     private $name;
@@ -55,18 +54,21 @@ class Upload
         //incrementar duplicações
         $this->duplicates++;
 
-        return $this->getPossibleBasename($dir,$overwrite);
+        return $this->getPossibleBasename($dir,$overwrite=true);
     }
 
-    public function upload($dir, $overwrite =true) {
+    public function upload($dir, $nome) {
         //VERIFICAR ERRO
         if ($this->error !=0) return false; 
+        if($nome != null){
+            $extension = strlen($this->extension) ? '.' .$this->extension : '';
+            $path = $dir.'/'.$nome.$extension;
+        }else{
+            $path = $dir.'/'.$this->getBasename();
+        }
 
-        $path = $dir.'/'.$this->getPossibleBasename($dir, $overwrite);
-        
         //MOVE PARA A PASTA DE DESTINO 
         return move_uploaded_file($this->tmpName,$path);
-
-
     }
-}
+   
+    }
